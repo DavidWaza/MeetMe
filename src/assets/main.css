@@ -1,0 +1,9 @@
+@import './tokens.css';
+@import './base.css';
+
+#app {
+  min-height: 100dvh;
+  display: flex;
+  justify-content: center;
+  background: var(--surface-sunken);
+}

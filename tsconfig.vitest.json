@@ -1,0 +1,19 @@
+{
+  "extends": "./tsconfig.app.json",
+
+  // Override to include only test files and clear exclusions.
+  // Application code imported in tests is automatically included via module resolution.
+  "include": ["src/**/__tests__/*", "env.d.ts"],
+  "exclude": [],
+
+  "compilerOptions": {
+    // Tests import application code, so they inherit the app's `lib` (an empty
+    // `lib` here made ES2022 methods like `Array.prototype.at` fail to
+    // type-check only when a test imported them). Add the test-env types.
+    "types": ["node", "jsdom"],
+
+    // `vue-tsc --build` produces a .tsbuildinfo file for incremental type-checking.
+    // Specified here to keep it out of the root directory.
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.vitest.tsbuildinfo"
+  }
+}

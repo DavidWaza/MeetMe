@@ -1,0 +1,220 @@
+/*
+ * The design system's source of truth.
+ *
+ * Ramp shape is fixed: `50` background, `100`/`150` border, `500` solid,
+ * `600` hover. Every component variant in `components/n/` is written against
+ * those step names, so re-theming is a hex change here and nothing else.
+ *
+ * Raw ramps live in `:root`. Semantic tokens (surface/text/border) are derived
+ * from them, and dark mode remaps only the derived layer — never the ramps.
+ */
+
+:root {
+  /* base — text, borders, surfaces */
+  --base-0: #ffffff;
+  --base-50: #fbfafb;
+  --base-100: #f3f1f4;
+  --base-150: #e8e5eb;
+  --base-400: #a49daa;
+  --base-500: #8a8190;
+  --base-550: #6f6676;
+  --base-600: #564e5c;
+  --base-900: #241f28;
+  --base-950: #16121a;
+
+  /* accent — primary actions, links, the "like" gesture */
+  --accent-50: #fff1f3;
+  --accent-100: #ffe0e5;
+  --accent-150: #ffc6cf;
+  --accent-500: #f2385a;
+  --accent-600: #d61f42;
+
+  /* green — success, mutual match */
+  --green-50: #eefbf3;
+  --green-100: #d6f5e3;
+  --green-150: #b2ecce;
+  --green-500: #18a865;
+  --green-600: #0f8a51;
+
+  /* red — destructive, the "pass" gesture */
+  --red-50: #fef2f2;
+  --red-100: #fee2e2;
+  --red-150: #fecaca;
+  --red-500: #e5484d;
+  --red-600: #c62a30;
+
+  /* yellow — warning, pending, unverified */
+  --yellow-50: #fffaeb;
+  --yellow-100: #fff0c7;
+  --yellow-150: #ffe08a;
+  --yellow-500: #f0a217;
+  --yellow-600: #cc820a;
+
+  /* blue — informational, the "super like" gesture */
+  --blue-50: #eff6ff;
+  --blue-100: #dbeafe;
+  --blue-150: #bfdbfe;
+  --blue-500: #3b82f6;
+  --blue-600: #2563eb;
+
+  /* text on a tint — the 600 step in light mode, a lighter tint in dark. Use
+     these for coloured *text*; keep the raw 600 step for solid fills. */
+  --accent-fg: var(--accent-600);
+  --green-fg: var(--green-600);
+  --red-fg: var(--red-600);
+  --yellow-fg: var(--yellow-600);
+  --blue-fg: var(--blue-600);
+
+  /* flow — brand gradient, used on the deck chrome and the match curtain */
+  --flow-primary: #f2385a;
+  --flow-secondary: #ff8a5b;
+  --flow-s2: #ff6b8b;
+  --flow-s3: #a855f7;
+
+  /* spacing — the unit every `--space-*` step is built from */
+  --spacing: 0.25rem;
+  --space-1: calc(var(--spacing) * 1);
+  --space-2: calc(var(--spacing) * 2);
+  --space-3: calc(var(--spacing) * 3);
+  --space-4: calc(var(--spacing) * 4);
+  --space-5: calc(var(--spacing) * 5);
+  --space-6: calc(var(--spacing) * 6);
+  --space-8: calc(var(--spacing) * 8);
+  --space-10: calc(var(--spacing) * 10);
+  --space-12: calc(var(--spacing) * 12);
+  --space-16: calc(var(--spacing) * 16);
+
+  /* radius — derived by arithmetic from one value, so the corner language
+     moves as a whole */
+  --radius: 0.875rem;
+  --radius-sm: calc(var(--radius) - 6px);
+  --radius-md: calc(var(--radius) - 3px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 6px);
+  --radius-2xl: calc(var(--radius) + 14px);
+  --radius-full: 9999px;
+
+  /* type */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --text-2xs: 0.6875rem;
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.375rem;
+  --text-2xl: 1.75rem;
+  --text-3xl: 2.25rem;
+
+  /* elevation */
+  --shadow-sm: 0 1px 2px rgb(22 18 26 / 0.06), 0 1px 3px rgb(22 18 26 / 0.08);
+  --shadow-md: 0 4px 12px rgb(22 18 26 / 0.08), 0 2px 4px rgb(22 18 26 / 0.06);
+  --shadow-lg: 0 12px 32px rgb(22 18 26 / 0.14), 0 4px 8px rgb(22 18 26 / 0.06);
+  --shadow-card: 0 18px 40px rgb(22 18 26 / 0.18);
+
+  /* motion */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --duration-fast: 140ms;
+  --duration-base: 220ms;
+  --duration-slow: 420ms;
+
+  /* layout — a mobile-first app rendered inside a phone-width column */
+  --app-max-width: 30rem;
+  --tabbar-height: 4.25rem;
+  --appbar-height: 3.5rem;
+
+  /* derived semantics — the layer dark mode remaps */
+  --surface: var(--base-0);
+  --surface-sunken: var(--base-50);
+  --surface-raised: var(--base-0);
+  --surface-inset: var(--base-100);
+  --text-strong: var(--base-900);
+  --text-body: var(--base-600);
+  --text-muted: var(--base-500);
+  --text-inverse: var(--base-0);
+  --border-subtle: var(--base-100);
+  --border-strong: var(--base-150);
+  --overlay: rgb(22 18 26 / 0.55);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --surface: #17131b;
+    --surface-sunken: #110e14;
+    --surface-raised: #211c26;
+    --surface-inset: #2b2531;
+    --text-strong: #f7f5f8;
+    --text-body: #cfc8d4;
+    --text-muted: #9e95a6;
+    --text-inverse: #17131b;
+    --border-subtle: #2b2531;
+    --border-strong: #3a3341;
+    --overlay: rgb(8 6 10 / 0.7);
+    --base-50: #1d1822;
+    --base-100: #2b2531;
+    --base-150: #3a3341;
+    --shadow-card: 0 18px 40px rgb(0 0 0 / 0.5);
+    /* tinted ramps: the 50/100/150 background steps become dark tints */
+    --accent-50: #33131c;
+    --accent-100: #461a27;
+    --accent-150: #632237;
+    --green-50: #0e2619;
+    --green-100: #123322;
+    --green-150: #1a4a32;
+    --red-50: #2f1314;
+    --red-100: #41191b;
+    --red-150: #5b2225;
+    --yellow-50: #2b210a;
+    --yellow-100: #3a2c0d;
+    --yellow-150: #544012;
+    --blue-50: #0e1c33;
+    --blue-100: #132645;
+    --blue-150: #1b3562;
+    --accent-fg: #ff8ba1;
+    --green-fg: #4cd68f;
+    --red-fg: #ff8a8e;
+    --yellow-fg: #f6c152;
+    --blue-fg: #86b6ff;
+    --shadow-lg: 0 12px 32px rgb(0 0 0 / 0.45);
+  }
+}
+
+:root[data-theme='dark'] {
+  --surface: #17131b;
+  --surface-sunken: #110e14;
+  --surface-raised: #211c26;
+  --surface-inset: #2b2531;
+  --text-strong: #f7f5f8;
+  --text-body: #cfc8d4;
+  --text-muted: #9e95a6;
+  --text-inverse: #17131b;
+  --border-subtle: #2b2531;
+  --border-strong: #3a3341;
+  --overlay: rgb(8 6 10 / 0.7);
+  --base-50: #1d1822;
+  --base-100: #2b2531;
+  --base-150: #3a3341;
+  --shadow-card: 0 18px 40px rgb(0 0 0 / 0.5);
+  /* tinted ramps: the 50/100/150 background steps become dark tints */
+  --accent-50: #33131c;
+  --accent-100: #461a27;
+  --accent-150: #632237;
+  --green-50: #0e2619;
+  --green-100: #123322;
+  --green-150: #1a4a32;
+  --red-50: #2f1314;
+  --red-100: #41191b;
+  --red-150: #5b2225;
+  --yellow-50: #2b210a;
+  --yellow-100: #3a2c0d;
+  --yellow-150: #544012;
+  --blue-50: #0e1c33;
+  --blue-100: #132645;
+  --blue-150: #1b3562;
+  --accent-fg: #ff8ba1;
+  --green-fg: #4cd68f;
+  --red-fg: #ff8a8e;
+  --yellow-fg: #f6c152;
+  --blue-fg: #86b6ff;
+  --shadow-lg: 0 12px 32px rgb(0 0 0 / 0.45);
+}
