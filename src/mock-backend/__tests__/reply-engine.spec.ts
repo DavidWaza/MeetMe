@@ -140,12 +140,12 @@ describe('composeReply — the simulated partner', () => {
 
   it('never stacks a follow-up question onto a reply that already asks one', () => {
     // Warm persona, high interest: follow-ups are likely, emoji too.
-    const tunde = SEED_PROFILES.find((seed) => seed.profile.id === 'p_tunde')!
+    const kenny = SEED_PROFILES.find((seed) => seed.profile.id === 'p_kenny')!
     for (let run = 0; run < 40; run++) {
       const plan = composeReply({
         text: 'How is your day going?',
-        profile: tunde.profile,
-        persona: tunde.persona,
+        profile: kenny.profile,
+        persona: kenny.persona,
         me: SEED_ME,
         history: [],
         interest: 90,
@@ -154,7 +154,7 @@ describe('composeReply — the simulated partner', () => {
       })
       // Every "how are you" reply already ends on a question back.
       const body = plan.body ?? ''
-      expect(tunde.persona.followUps.some((followUp) => body.includes(followUp))).toBe(false)
+      expect(kenny.persona.followUps.some((followUp) => body.includes(followUp))).toBe(false)
     }
   })
 
