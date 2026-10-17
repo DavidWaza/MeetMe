@@ -5,8 +5,8 @@ test.use({ viewport: { width: 390, height: 844 } })
 
 const topCard = (page: Page) => page.locator('.dc-card--top')
 
-const MEN = ['Tunde', 'Kofi', 'David', 'Emeka', 'Seun', 'Chinedu', 'Ibrahim']
-const WOMEN = ['Amara', 'Zara', 'Ngozi', 'Lola', 'Ife', 'Chioma']
+const MEN = ['Tunde', 'Kofi', 'David', 'Emeka', 'Chinedu']
+const WOMEN = ['Amara', 'Zara', 'Ngozi', 'Lola', 'Chioma']
 
 /** Every run starts signed out (fresh browser context); most flows start as Femi. */
 async function logInAsDemo(page: Page, label = 'Femi (man)'): Promise<void> {

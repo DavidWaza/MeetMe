@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { fallbackToPortrait } from '@/utils/profile-photos'
 import { computed } from 'vue'
 import NSheet from '@/components/n/sheet/NSheet.vue'
 import NIcon from '@/components/n/icon/NIcon.vue'
@@ -37,13 +36,9 @@ function act(action: TypeSwipeAction): void {
           :key="index"
           :src="photo"
           :alt="`${props.profile.name}, photo ${index + 1}`"
-          @error="fallbackToPortrait($event, props.profile.id, index)"
           class="dc-sheet__photo"
         />
       </div>
-      <p v-if="props.profile.photoCredit" class="dc-sheet__credit">
-        Photos: {{ props.profile.photoCredit }} on Unsplash
-      </p>
 
       <header class="dc-sheet__header">
         <h2 class="dc-sheet__name">
@@ -137,12 +132,6 @@ function act(action: TypeSwipeAction): void {
   border-radius: var(--radius-xl);
   object-fit: cover;
   scroll-snap-align: start;
-}
-
-.dc-sheet__credit {
-  margin-top: calc(var(--space-3) * -1);
-  font-size: var(--text-2xs);
-  color: var(--text-muted);
 }
 
 .dc-sheet__name {

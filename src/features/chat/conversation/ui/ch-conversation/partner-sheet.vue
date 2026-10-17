@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { fallbackToPortrait } from '@/utils/profile-photos'
 import NSheet from '@/components/n/sheet/NSheet.vue'
 import NStatus from '@/components/n/badge/NStatus.vue'
 import NIcon from '@/components/n/icon/NIcon.vue'
@@ -13,12 +12,7 @@ const emit = defineEmits<{ 'update:open': [boolean] }>()
 <template>
   <NSheet :open="props.open" @update:open="emit('update:open', $event)">
     <div class="ch-partner">
-      <img
-        class="ch-partner__photo"
-        :src="props.partner.photo"
-        :alt="props.partner.name"
-        @error="fallbackToPortrait($event, props.partner.matchId)"
-      />
+      <img class="ch-partner__photo" :src="props.partner.photo" :alt="props.partner.name" />
       <div>
         <h2 class="ch-partner__name">{{ props.partner.name }}, {{ props.partner.age }}</h2>
         <p v-if="props.partner.pronouns" class="ch-partner__muted">{{ props.partner.pronouns }}</p>

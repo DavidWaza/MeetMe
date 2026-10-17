@@ -35,7 +35,7 @@ function badgeFor(item: TypeNavItem): number {
       :aria-current="isActive(item) ? 'page' : undefined"
     >
       <span class="sh-tabbar__icon">
-        <NIcon :name="item.icon" :size="24" :filled="isActive(item) && item.icon !== 'profile'" />
+        <NIcon :name="item.icon" :size="24" :filled="isActive(item) && item.icon === 'messages'" />
         <span v-if="badgeFor(item)" class="sh-tabbar__badge">
           {{ badgeFor(item) > 9 ? '9+' : badgeFor(item) }}
         </span>

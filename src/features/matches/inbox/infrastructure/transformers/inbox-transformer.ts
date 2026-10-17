@@ -1,5 +1,4 @@
 import type { ApiMatch } from '@/api/types'
-import { photosFor } from '@/utils/profile-photos'
 import { ageFrom } from '@/utils/age'
 import type { TypeInboxMatch } from '../../domain/inbox-entities'
 
@@ -12,7 +11,7 @@ export function toInboxMatch(api: ApiMatch): TypeInboxMatch {
     id: api.id,
     name: api.profile.first_name,
     age: ageFrom(api.profile.birth_date),
-    photo: photosFor(api.profile)[0]!,
+    photo: api.profile.photo_urls[0]!,
     presence: api.profile.presence,
     connectionState: api.connection_state,
     viaSuperLike: api.via_super_like,

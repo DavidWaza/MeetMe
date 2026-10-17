@@ -52,6 +52,8 @@ const GLYPHS = {
   sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/>',
   trash:
     '<path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>',
+  'bubble-heart':
+    '<path d="M7.5 3.5h9a5 5 0 0 1 5 5v4a5 5 0 0 1-5 5h-4l-4.2 3a1 1 0 0 1-1.58-.95l.3-2.1A5 5 0 0 1 2.5 12.5v-4a5 5 0 0 1 5-5Z"/><path fill="currentColor" stroke="none" d="M12 14.1c-2.3-1.55-3.6-2.8-3.6-4.3a2 2 0 0 1 3.6-1.2 2 2 0 0 1 3.6 1.2c0 1.5-1.3 2.75-3.6 4.3Z"/>',
   eye: '<path d="M2.06 12.35a1 1 0 0 1 0-.7 10.75 10.75 0 0 1 19.88 0 1 1 0 0 1 0 .7 10.75 10.75 0 0 1-19.88 0"/><circle cx="12" cy="12" r="3"/>',
   'eye-off':
     '<path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/><path d="M6.61 6.61A13.53 13.53 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/><path d="M14.08 14.08a3 3 0 1 1-4.16-4.16"/><path d="m2 2 20 20"/>',
@@ -77,7 +79,7 @@ const SEMANTIC_ALIASES = {
   delivered: 'check',
   read: 'check-double',
   online: 'bolt',
-  discover: 'flame',
+  discover: 'bubble-heart',
   profile: 'user',
   messages: 'chat',
   empty: 'ghost',

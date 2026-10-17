@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import NIcon from '@/components/n/icon/NIcon.vue'
+import NLogo from '@/components/n/logo/NLogo.vue'
 
 const props = defineProps<{ title: string; subtitle: string }>()
 </script>
@@ -7,7 +7,7 @@ const props = defineProps<{ title: string; subtitle: string }>()
 <template>
   <main class="au-layout">
     <header class="au-layout__hero">
-      <span class="au-layout__brand"><NIcon name="discover" :size="30" filled /> MeetMe</span>
+      <NLogo :size="40" wordmark tone="inverse" class="au-layout__brand" />
       <p class="au-layout__tagline">Swipe. Match. Actually talk.</p>
     </header>
 
@@ -42,12 +42,8 @@ const props = defineProps<{ title: string; subtitle: string }>()
 }
 
 .au-layout__brand {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-2);
-  font-size: var(--text-3xl);
-  font-weight: 850;
-  letter-spacing: -0.04em;
+  /* The logo sizes itself; the hero only sets how it sits. */
+  margin-bottom: var(--space-1);
 }
 
 .au-layout__tagline {

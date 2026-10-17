@@ -15,7 +15,7 @@ import NField from '@/components/n/field/NField.vue'
 import NIcon from '@/components/n/icon/NIcon.vue'
 import NInput from '@/components/n/field/NInput.vue'
 import NSpinner from '@/components/n/spinner/NSpinner.vue'
-import { avatarFor } from '@/lib/portrait'
+import NAvatar from '@/components/n/avatar/NAvatar.vue'
 import useAProfile from '../../composition/use-a-profile'
 import { BIO_MAX_LENGTH, INTEREST_OPTIONS, INTERESTS_MAX } from '../../domain/profile-entities'
 import AProfileDiscoveryCard from './discovery-card.vue'
@@ -53,7 +53,7 @@ async function onReset(): Promise<void> {
 
     <template v-else>
       <section class="a-profile__hero">
-        <img class="a-profile__avatar" :src="avatarFor('me')" alt="Your photo" />
+        <NAvatar :seed="profile.name" :name="profile.name" :size="104" class="a-profile__avatar" />
         <h1 class="a-profile__name">{{ profile.name }}, {{ profile.age }}</h1>
         <p class="a-profile__meta">
           <NIcon name="distance" :size="14" /> {{ profile.city }}

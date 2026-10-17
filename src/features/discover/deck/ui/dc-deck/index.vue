@@ -6,7 +6,9 @@ import NPageContent from '@/components/n/page/NPageContent.vue'
 import NButton from '@/components/n/button/NButton.vue'
 import NEmpty from '@/components/n/empty/NEmpty.vue'
 import NIcon from '@/components/n/icon/NIcon.vue'
+import NLogo from '@/components/n/logo/NLogo.vue'
 import { ROUTE_NAMES } from '@/router/route-names'
+import { useSessionStore } from '@/stores/session'
 import useDcDeck from '../../composition/use-dc-deck'
 import type { TypeSwipeAction } from '../../domain/deck-entities'
 import DcDeckActions from './actions.vue'
@@ -14,6 +16,8 @@ import DcDeckCard from './card.vue'
 import DcDeckMatchCurtain from './match-curtain.vue'
 import DcDeckProfileSheet from './profile-sheet.vue'
 import DcDeckSkeleton from './skeleton.vue'
+
+const session = useSessionStore()
 
 const {
   current,
@@ -108,7 +112,7 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKeydown))
         <NIcon name="settings" :size="22" />
       </RouterLink>
     </template>
-    <span class="dc-deck__brand"><NIcon name="discover" :size="22" filled /> MeetMe</span>
+    <NLogo :size="26" wordmark />
     <template #trail>
       <RouterLink
         :to="{ name: ROUTE_NAMES.matches }"
@@ -180,29 +184,16 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKeydown))
   </NPageContent>
 
   <DcDeckProfileSheet v-model:open="detailsOpen" :profile="current" @act="act" />
-  <DcDeckMatchCurtain :celebration="celebration" @close="dismissCelebration" />
+  <DcDeckMatchCurtain
+    :celebration="celebration"
+    :me-name="session.user?.firstName ?? 'You'"
+    @close="dismissCelebration"
+  />
 </template>
 
 <style scoped>
 .dc-deck {
   background: var(--surface);
-}
-
-.dc-deck__brand {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-1);
-  font-size: var(--text-xl);
-  font-weight: 850;
-  letter-spacing: -0.04em;
-  background: linear-gradient(135deg, var(--flow-primary), var(--flow-secondary));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-.dc-deck__brand :deep(svg) {
-  color: var(--flow-primary);
 }
 
 .dc-deck__icon-link {

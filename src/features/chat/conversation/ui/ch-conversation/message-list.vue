@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { fallbackToPortrait } from '@/utils/profile-photos'
 import { computed, nextTick, ref, watch } from 'vue'
 import NIcon from '@/components/n/icon/NIcon.vue'
 import { formatDayDivider, formatTime, isSameZonedDay } from '@/utils/date-formatters'
@@ -107,12 +106,7 @@ watch(
 <template>
   <div ref="scroller" class="ch-list" role="log" aria-live="polite" aria-relevant="additions">
     <div class="ch-list__intro">
-      <img
-        class="ch-list__intro-photo"
-        :src="props.partner.photo"
-        :alt="props.partner.name"
-        @error="fallbackToPortrait($event, props.partner.matchId)"
-      />
+      <img class="ch-list__intro-photo" :src="props.partner.photo" :alt="props.partner.name" />
       <p class="ch-list__intro-title">You matched with {{ props.partner.name }}</p>
       <p class="ch-list__intro-sub">
         {{ formatDayDivider(props.partner.matchedAt) }}

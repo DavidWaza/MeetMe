@@ -1,6 +1,5 @@
 import type { ApiDeckPage, ApiProfile, ApiSwipeResult } from '@/api/types'
 import { ageFrom } from '@/utils/age'
-import { photosFor } from '@/utils/profile-photos'
 import { jobLabelFrom } from '@/utils/profile-labels'
 import type { TypeDeckPage, TypeDeckProfile, TypeSwipeOutcome } from '../../domain/deck-entities'
 
@@ -19,8 +18,7 @@ export function toDeckProfile(api: ApiProfile): TypeDeckProfile {
     heightCm: api.height_cm,
     interests: api.interests,
     prompts: api.prompts.map((prompt) => ({ question: prompt.question, answer: prompt.answer })),
-    photos: photosFor(api),
-    photoCredit: api.photo_credit ?? null,
+    photos: [...api.photo_urls],
     presence: api.presence,
     verification: api.verification,
     lastActiveAt: api.last_active_at,

@@ -17,14 +17,14 @@ npm run dev          # http://localhost:5173
 Open it in a phone-sized window, or with DevTools device mode. On a desktop the
 app renders as a centred phone-width column.
 
-| Command              | What it does                                      |
-| -------------------- | ------------------------------------------------- |
-| `npm run dev`        | Dev server                                        |
-| `npm run build`      | Type-check (`vue-tsc --build`) and production build |
-| `npm run test:unit`  | Vitest (use cases, reply engine, status, gestures) |
-| `npm run test:e2e`   | Playwright, phone viewport, full flows            |
-| `npm run lint`       | oxlint, then ESLint                               |
-| `npm run format`     | Prettier                                          |
+| Command             | What it does                                        |
+| ------------------- | --------------------------------------------------- |
+| `npm run dev`       | Dev server                                          |
+| `npm run build`     | Type-check (`vue-tsc --build`) and production build |
+| `npm run test:unit` | Vitest (use cases, reply engine, status, gestures)  |
+| `npm run test:e2e`  | Playwright, phone viewport, full flows              |
+| `npm run lint`      | oxlint, then ESLint                                 |
+| `npm run format`    | Prettier                                            |
 
 All data is stored in `localStorage` under `meetme:*`. To clear your own
 swipes, matches and chats, use **Profile → Your activity → Reset activity**.
@@ -65,12 +65,12 @@ swipes, matches and chats, use **Profile → Your activity → Reset activity**.
   refuses a swipe, the card comes back.
 - You can rewind a swipe, but not a match. The backend refuses to rewind a
   match, and the app shows its reason.
-- The men's and women's profiles use free-licence photos of Nigerian people
-  from [Unsplash](https://unsplash.com), loaded from its image CDN and credited
-  on the full profile. The two non-binary profiles use generated portrait art (with man ↔ woman matching, they don't currently appear in anyone's deck). If a photo
-  can't load (for example offline), the generated art is shown instead.
-  Photos are set per profile in `photo_urls` in
-  [src/mock-backend/seed.ts](src/mock-backend/seed.ts).
+- The deck holds ten profiles, five men and five women, each with one supplied
+  photo. The photos live in [src/assets/profiles/](src/assets/profiles/) and are
+  bundled with the app, so they need no network. Which photo a profile uses is
+  the `photo_urls` import in [src/mock-backend/seed.ts](src/mock-backend/seed.ts).
+  Nothing in the app is generated artwork; your own account shows an initial
+  instead of a photo until profile photo upload exists.
 - On a mutual like, a match screen appears. Some profiles send the first
   message a few seconds after you match.
 
@@ -84,8 +84,8 @@ swipes, matches and chats, use **Profile → Your activity → Reset activity**.
 
 - **Simulated replies.** Each profile has a private persona with a tone
   (playful, warm, dry or curious), a typing pace, openers and follow-up
-  questions. After you send a message, the pipeline runs: *delivered*, then
-  *read*, then *typing…*, then a reply.
+  questions. After you send a message, the pipeline runs: _delivered_, then
+  _read_, then _typing…_, then a reply.
   - If you send several messages in a row, they get one combined reply, sent
     after you pause.
   - A message that opens with "Hey!" and then asks something gets an answer to
@@ -98,6 +98,7 @@ swipes, matches and chats, use **Profile → Your activity → Reset activity**.
   Interest changes how they reply: low interest gets short replies, high
   interest gets follow-up questions and yes to a date. Below 15 they stop
   replying, and a thoughtful message can bring them back.
+
 - **Teach replies (the prompts you give the system).** Write rules in the form
   "when I say X, they reply Y".
   - A trigger is a phrase or a `/regex/`.
@@ -108,7 +109,7 @@ swipes, matches and chats, use **Profile → Your activity → Reset activity**.
     quiet.
 - **Speak as them.** Tap the **You** button next to the composer to write as
   the other person, so you can play both sides. A message you voice replaces
-  their pending simulated reply and is marked *voiced by you*.
+  their pending simulated reply and is marked _voiced by you_.
 - **Pause simulated replies** from the ⚙ menu if you'd rather write both sides
   by hand.
 - **Suggestion chips** above the composer: openers before anyone has spoken,
@@ -128,19 +129,19 @@ The blueprint describes a Nuxt, Tailwind and TanStack dashboard. This repo is
 Vue 3, Vite and Pinia, with no new dependencies. The table maps each blueprint
 concept to its home here.
 
-| Blueprint                                   | Here                                                                                        |
-| ------------------------------------------- | ------------------------------------------------------------------------------------------- |
-| Tokens in one CSS file (`@theme`)           | [src/assets/tokens.css](src/assets/tokens.css): same ramp shape (`50/100/150/500/600`), radius derived from one `--radius`, a derived semantic layer that dark mode remaps |
-| `cn` = `twMerge(clsx())`                    | [src/lib/cn.ts](src/lib/cn.ts): `clsx` only, because without utility CSS there are no class collisions to merge |
-| CVA + `*-variants.ts` siblings              | [src/lib/cva.ts](src/lib/cva.ts), [button-variants.ts](src/components/n/button/button-variants.ts): orthogonal `color` × `variant` through `compoundVariants` |
-| `components/n/` design system, composition over configuration | [src/components/n/](src/components/n/): `NCard` + `NCardHeader/Title/Description/Action/Content/Footer`, `data-slot` on every part, `class` forwarded |
-| Status registry / resolver / palette        | [src/utils/status/](src/utils/status/): connection, delivery, presence and verification kinds; the mock backend deliberately sends aliased spellings (`seen`, `active_now`, `waiting_on_you`) |
-| Icon name map                               | [src/utils/icons.ts](src/utils/icons.ts): semantic names (`like`, `pending`, `read`) mapped to glyphs |
-| Dates: one zone, one pattern resolved at call time | [src/utils/date-formatters.ts](src/utils/date-formatters.ts): `Africa/Lagos`; raw timestamps travel to the component that prints them |
-| `ApiResponse` envelope + `unwrapApiResponse` | [src/lib/api-envelope.ts](src/lib/api-envelope.ts): every write unwraps; refusals come back as `status: false` |
-| TanStack Query                              | [src/lib/use-query.ts](src/lib/use-query.ts): a small stand-in with the same shape (`keepPreviousData`, stale window, prefix invalidation) |
-| Feature slices                              | [src/features/](src/features/): `discover/deck`, `matches/inbox`, `chat/conversation`, `account/profile`, `auth/session`, `shell/tabbar` |
-| Mock latency (400 / 650 ms)                 | [src/lib/latency.ts](src/lib/latency.ts), so loading states actually render |
+| Blueprint                                                     | Here                                                                                                                                                                                          |
+| ------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Tokens in one CSS file (`@theme`)                             | [src/assets/tokens.css](src/assets/tokens.css): same ramp shape (`50/100/150/500/600`), radius derived from one `--radius`, a derived semantic layer that dark mode remaps                    |
+| `cn` = `twMerge(clsx())`                                      | [src/lib/cn.ts](src/lib/cn.ts): `clsx` only, because without utility CSS there are no class collisions to merge                                                                               |
+| CVA + `*-variants.ts` siblings                                | [src/lib/cva.ts](src/lib/cva.ts), [button-variants.ts](src/components/n/button/button-variants.ts): orthogonal `color` × `variant` through `compoundVariants`                                 |
+| `components/n/` design system, composition over configuration | [src/components/n/](src/components/n/): `NCard` + `NCardHeader/Title/Description/Action/Content/Footer`, `data-slot` on every part, `class` forwarded                                         |
+| Status registry / resolver / palette                          | [src/utils/status/](src/utils/status/): connection, delivery, presence and verification kinds; the mock backend deliberately sends aliased spellings (`seen`, `active_now`, `waiting_on_you`) |
+| Icon name map                                                 | [src/utils/icons.ts](src/utils/icons.ts): semantic names (`like`, `pending`, `read`) mapped to glyphs                                                                                         |
+| Dates: one zone, one pattern resolved at call time            | [src/utils/date-formatters.ts](src/utils/date-formatters.ts): `Africa/Lagos`; raw timestamps travel to the component that prints them                                                         |
+| `ApiResponse` envelope + `unwrapApiResponse`                  | [src/lib/api-envelope.ts](src/lib/api-envelope.ts): every write unwraps; refusals come back as `status: false`                                                                                |
+| TanStack Query                                                | [src/lib/use-query.ts](src/lib/use-query.ts): a small stand-in with the same shape (`keepPreviousData`, stale window, prefix invalidation)                                                    |
+| Feature slices                                                | [src/features/](src/features/): `discover/deck`, `matches/inbox`, `chat/conversation`, `account/profile`, `auth/session`, `shell/tabbar`                                                      |
+| Mock latency (400 / 650 ms)                                   | [src/lib/latency.ts](src/lib/latency.ts), so loading states actually render                                                                                                                   |
 
 Each slice has the blueprint's shape:
 
@@ -217,5 +218,4 @@ line changes.
 
 `npm run test:e2e` reuses a dev server that is already running on port 5173.
 To test the production build instead, run `npm run build`, then
-`CI=1 npx playwright test --project=chromium`, which serves the build on port
-4173.
+`CI=1 npx playwright test --project=chromium`, which serves the build on port 4173.

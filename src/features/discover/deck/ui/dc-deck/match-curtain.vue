@@ -1,13 +1,12 @@
 <script setup lang="ts">
-import { fallbackToPortrait } from '@/utils/profile-photos'
 import { RouterLink } from 'vue-router'
 import NButton from '@/components/n/button/NButton.vue'
 import NIcon from '@/components/n/icon/NIcon.vue'
-import { avatarFor } from '@/lib/portrait'
+import NAvatar from '@/components/n/avatar/NAvatar.vue'
 import { ROUTE_NAMES } from '@/router/route-names'
 import type { TypeMatchCelebration } from '../../domain/deck-entities'
 
-const props = defineProps<{ celebration: TypeMatchCelebration | null }>()
+const props = defineProps<{ celebration: TypeMatchCelebration | null; meName: string }>()
 const emit = defineEmits<{ close: [] }>()
 
 // Hearts drift up behind the text; positions are fixed so the layout is stable.
@@ -52,16 +51,16 @@ const HEARTS = [8, 22, 37, 51, 64, 78, 90].map((left, index) => ({
           </p>
 
           <div class="dc-curtain__pair">
-            <img
+            <NAvatar
+              seed="me"
+              :name="props.meName"
+              :size="136"
               class="dc-curtain__avatar dc-curtain__avatar--me"
-              :src="avatarFor('me')"
-              alt="You"
             />
             <img
               class="dc-curtain__avatar dc-curtain__avatar--them"
               :src="props.celebration.profile.photos[0]"
               :alt="props.celebration.profile.name"
-              @error="fallbackToPortrait($event, props.celebration.profile.id)"
             />
             <span class="dc-curtain__badge"><NIcon name="like" filled :size="20" /></span>
           </div>

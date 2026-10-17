@@ -5,7 +5,6 @@ import type {
   ApiReplyRule,
   ApiSendResult,
 } from '@/api/types'
-import { photosFor } from '@/utils/profile-photos'
 import { ageFrom } from '@/utils/age'
 import { jobLabelFrom } from '@/utils/profile-labels'
 import type {
@@ -38,7 +37,7 @@ export function toConversation(api: ApiConversation): TypeConversation {
       matchId: api.match.id,
       name: profile.first_name,
       age: ageFrom(profile.birth_date),
-      photo: photosFor(profile)[0]!,
+      photo: profile.photo_urls[0]!,
       pronouns: profile.pronouns,
       presence: profile.presence,
       verification: profile.verification,

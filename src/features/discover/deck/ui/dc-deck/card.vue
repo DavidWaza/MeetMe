@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { fallbackToPortrait } from '@/utils/profile-photos'
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 import NIcon from '@/components/n/icon/NIcon.vue'
 import NStatus from '@/components/n/badge/NStatus.vue'
@@ -209,7 +208,6 @@ defineExpose({ fling })
       class="dc-card__photo"
       :src="photo"
       :alt="`Photo of ${props.profile.name}`"
-      @error="fallbackToPortrait($event, props.profile.id, photoIndex)"
       draggable="false"
     />
 

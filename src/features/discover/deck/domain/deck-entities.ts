@@ -27,8 +27,6 @@ export interface TypeDeckProfile {
   interests: string[]
   prompts: TypeDeckPrompt[]
   photos: string[]
-  /** Photographer to credit when the photos are real. */
-  photoCredit: string | null
   presence: string
   verification: string
   lastActiveAt: string

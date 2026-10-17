@@ -38,11 +38,8 @@ export interface ApiProfile {
   height_cm: number | null
   interests: string[]
   prompts: ApiPrompt[]
-  photo_count: number
-  /** Real photos, when the profile has them. Absent means generated art. */
-  photo_urls?: string[]
-  /** Photographer credit for `photo_urls`, shown on the full profile. */
-  photo_credit?: string | null
+  /** At least one photo. The app has no placeholder art to fall back to. */
+  photo_urls: string[]
   presence: string
   verification: string
   /** No offset — UTC with the `Z` dropped, as some backends send it. */

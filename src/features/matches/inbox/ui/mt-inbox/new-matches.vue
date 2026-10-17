@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { fallbackToPortrait } from '@/utils/profile-photos'
 import { RouterLink } from 'vue-router'
 import NIcon from '@/components/n/icon/NIcon.vue'
 import { ROUTE_NAMES } from '@/router/route-names'
@@ -20,12 +19,7 @@ const props = defineProps<{ matches: TypeInboxMatch[] }>()
           class="mt-new__item"
         >
           <span class="mt-new__photo-wrap">
-            <img
-              class="mt-new__photo"
-              :src="match.photo"
-              :alt="match.name"
-              @error="fallbackToPortrait($event, match.id)"
-            />
+            <img class="mt-new__photo" :src="match.photo" :alt="match.name" />
             <span v-if="match.viaSuperLike" class="mt-new__super" title="Super like">
               <NIcon name="superlike" :size="12" filled />
             </span>
